@@ -14,6 +14,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public bool isFull;
     public string itemDescription;
     public Sprite emptySprite;
+    public bool isEquipped;
 
     //========= ITEM SLOT =========//
     [SerializeField]
