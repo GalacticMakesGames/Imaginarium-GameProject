@@ -57,17 +57,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void Equip()
-    {
-        Debug.Log("Ability has been equipped!");
+    //public void Equip()
+    //{
+    //    Debug.Log("Ability has been equipped!");
 
-        for (int i = 0; i < itemSlot.Length; i++)
-        {
-            if (itemSlot[i].isEquipped == false)
-            {
-                itemSlot[i].itemSprite = itemSlot[i].itemSprite;
-                return;
-            }
-        }
-    }
+    //    for (int i = 0; i < itemSlot.Length; i++)
+    //    {
+    //        if (itemSlot[i].isEquipped == false)
+    //        {
+    //            itemSlot[i].itemSprite = itemSlot[i].itemSprite;
+    //            return;
+    //        }
+    //    }
+    //}
 }

@@ -28,6 +28,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public GameObject selectedShader;
     public bool thisItemSelected;
 
+    //========= EQUIPPED SLOT =========//
+    [SerializeField]
+    private EquippedSlot equippedSlot;
+
+    public Button equipButton;
+
     public InventoryManager inventoryManager;
 
     private void Start()
@@ -79,5 +85,15 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void OnRightClick()
     {
 
+    }
+
+    public void EquipAbility()
+    {
+        if (itemDescriptionImage.sprite != null)
+        {
+            equippedSlot.EquipAbility(itemSprite, itemName, itemDescription);
+        }
+
+        // rather than emptying the slot upon equipping that ability, create another shader around the slots that will be turned on when equipped, similiar to selected shader
     }
 }
