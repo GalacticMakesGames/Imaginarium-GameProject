@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
+using UnityEngine.UI;
+//using static UnityEngine.Rendering.PostProcessing.SubpixelMorphologicalAntialiasing;
 
 public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
     private bool menuActivated;
-
+    
     public ItemSlot[] itemSlot;
+    public EquippedSlot[] equippedSlot;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,22 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
         }
+        return;
+    }
+
+    public void EquipAbility(string itemName, Sprite itemSprite, string itemDescription)
+    {
+        //Debug.Log("itemName = " + itemName + "quantity = " + quantity + "itemSprite = " + itemSprite);
+
+        for (int i = 0; i < equippedSlot.Length; i++)
+        {
+            if (equippedSlot[i].slotInUse == false)
+            {
+                equippedSlot[i].EquipAbility(itemSprite, itemName, itemDescription);
+                return;
+            }
+        }
+        return;
     }
 
     public void DeselectAllSlots()
