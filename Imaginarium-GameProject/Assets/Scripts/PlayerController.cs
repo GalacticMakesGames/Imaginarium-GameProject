@@ -16,12 +16,26 @@ public class PlayerController : MonoBehaviour
     public float rayLength;
     [SerializeField] bool grounded;
 
+    [SerializeField] bool backTurned;
+
+    public bool flipped; // determines which direction the flip happens
+    public float flipSpeed;
+
+    Quaternion flipLeft = Quaternion.Euler(0, -180, 0); // quaternion refers to rotation
+    Quaternion flipRight = Quaternion.Euler(0, 0, 0);
+
     Rigidbody rb;
+    Animator anim;
+    SpriteRenderer spriteRenderer;
+
+    //public ThirdPersonCamera thirdPersonCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -29,6 +43,36 @@ public class PlayerController : MonoBehaviour
     {
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
+
+        // Determines if flip is true or false
+        if (!flipped && moveInput.x < 0)
+        {
+            flipped = true;
+            //spriteRenderer.flipX = true;
+        }
+        else if (flipped && moveInput.x > 0)
+        {
+            flipped = false;
+            //spriteRenderer.flipX = false;
+        }
+
+        // smoothly interpolate between two rotational values
+        if (flipped)
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, flipLeft, flipSpeed * Time.deltaTime);
+            //thirdPersonCamera.transform.rotation = Quaternion.Euler(thirdPersonCamera._currentXRotation, thirdPersonCamera._currentYRotation, 0f);
+        }
+        else if (!flipped)
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, flipRight, flipSpeed * Time.deltaTime);
+            //thirdPersonCamera.transform.rotation = Quaternion.Euler(thirdPersonCamera._currentXRotation, thirdPersonCamera._currentYRotation, 0f);
+        }
+
+        // Determines if player's back is turned
+        if (!backTurned && moveInput.y > 0) backTurned = true;
+        else if (backTurned && moveInput.y < 0) backTurned = false;
+
+            anim.SetBool("BackTurned", backTurned);
 
         if (Input.GetKeyDown(KeyCode.Space) && grounded) jumpInput = true;
     }
