@@ -75,21 +75,20 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // --- NEW FUNCTION ADDED FOR THE SHAPE RECOGNIZER ---
     // This looks through your inventory to see if a specific item is collected
     public bool CheckIfHasItem(string searchName)
     {
-        // 1. Check the regular inventory slots first
+        // Check the inventory slots
         for (int i = 0; i < itemSlot.Length; i++)
         {
             // If the slot is full, check if its name matches the one we are searching for
             if (itemSlot[i].isFull == true && itemSlot[i].itemName == searchName)
             {
-                return true; // We found it!
+                return true;
             }
         }
 
-        // If we checked every single slot and found nothing, return false.
+        // If we checked every single slot and found nothing, return false
         return false;
     }
 
