@@ -8,7 +8,9 @@ public class InventoryManager : MonoBehaviour
 {
     public GameObject InventoryMenu;
     private bool menuActivated;
-    
+
+    public SketchbookPickup sketchbookPickup;
+
     public ItemSlot[] itemSlot;
     public EquippedSlot[] equippedSlot;
 
@@ -21,14 +23,14 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && menuActivated)
+        if (Input.GetKeyDown(KeyCode.F) && menuActivated && sketchbookPickup.sketchbook == true)
         {
             Time.timeScale = 1;
             InventoryMenu.SetActive(false);
             menuActivated = false;
         }
 
-        else if (Input.GetKeyDown(KeyCode.F) && !menuActivated)
+        else if (Input.GetKeyDown(KeyCode.F) && !menuActivated && sketchbookPickup.sketchbook == true)
         {
             Time.timeScale = 0;
             InventoryMenu.SetActive(true);
