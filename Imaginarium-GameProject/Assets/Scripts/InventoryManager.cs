@@ -12,12 +12,14 @@ public class InventoryManager : MonoBehaviour
     public SketchbookPickup sketchbookPickup;
 
     public ItemSlot[] itemSlot;
-    public EquippedSlot[] equippedSlot;
+    //public EquippedSlot[] equippedSlot;
+
+    public GameObject hudCanvas;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hudCanvas.SetActive(true);
     }
 
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class InventoryManager : MonoBehaviour
             Time.timeScale = 1;
             InventoryMenu.SetActive(false);
             menuActivated = false;
+            hudCanvas.SetActive(true);
         }
 
         else if (Input.GetKeyDown(KeyCode.F) && !menuActivated && sketchbookPickup.sketchbook == true)
@@ -35,6 +38,7 @@ public class InventoryManager : MonoBehaviour
             Time.timeScale = 0;
             InventoryMenu.SetActive(true);
             menuActivated = true;
+            hudCanvas.SetActive(false);
         }
     }
 
@@ -53,20 +57,20 @@ public class InventoryManager : MonoBehaviour
         return;
     }
 
-    public void EquipAbility(string itemName, Sprite itemSprite, string itemDescription)
-    {
-        //Debug.Log("itemName = " + itemName + "quantity = " + quantity + "itemSprite = " + itemSprite);
+    //public void EquipAbility(string itemName, Sprite itemSprite, string itemDescription)
+    //{
+    //    //Debug.Log("itemName = " + itemName + "quantity = " + quantity + "itemSprite = " + itemSprite);
 
-        for (int i = 0; i < equippedSlot.Length; i++)
-        {
-            if (equippedSlot[i].slotInUse == false)
-            {
-                equippedSlot[i].EquipAbility(itemSprite, itemName, itemDescription);
-                return;
-            }
-        }
-        return;
-    }
+    //    for (int i = 0; i < equippedSlot.Length; i++)
+    //    {
+    //        if (equippedSlot[i].slotInUse == false)
+    //        {
+    //            equippedSlot[i].EquipAbility(itemSprite, itemName, itemDescription);
+    //            return;
+    //        }
+    //    }
+    //    return;
+    //}
 
     public void DeselectAllSlots()
     {

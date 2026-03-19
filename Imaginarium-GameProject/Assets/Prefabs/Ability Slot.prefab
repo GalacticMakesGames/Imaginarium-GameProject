@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5116929455515678816}
   - component: {fileID: 7146013891800560562}
   - component: {fileID: 3203364717109474154}
+  - component: {fileID: 3162022851604185616}
   m_Layer: 5
   m_Name: Ability Slot
   m_TagString: Untagged
@@ -76,6 +77,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3162022851604185616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444078437410187683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b2058911e9165b48a692380bc020a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: 
+  quantity: 0
+  itemSprite: {fileID: 0}
+  isFull: 0
+  itemDescription: 
+  emptySprite: {fileID: 0}
+  isEquipped: 0
+  itemImage: {fileID: 0}
+  itemDescriptionImage: {fileID: 0}
+  itemDescriptionNameText: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
+  inventoryManager: {fileID: 0}
 --- !u!1 &5741875188986977716
 GameObject:
   m_ObjectHideFlags: 0
