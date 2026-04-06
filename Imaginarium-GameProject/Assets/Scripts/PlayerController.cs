@@ -41,6 +41,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (DialogueManager.Instance.isDialogueActive)
+        {
+            moveInput.x = 0f;
+            moveInput.y = 0f;
+            return;
+        }
+
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
 
