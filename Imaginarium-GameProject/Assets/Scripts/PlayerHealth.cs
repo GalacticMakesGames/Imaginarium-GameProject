@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public event Action OnPlayerDamaged;
     public event Action OnPlayerDeath;
 
+    public GameOverScript gameOverScript;
+
     public float playerHealth;
     public float maxPlayerHealth;
 
@@ -26,6 +28,8 @@ public class PlayerHealth : MonoBehaviour
             playerHealth = 0;
             Debug.Log("Died");
             OnPlayerDeath?.Invoke();
+
+            gameOverScript.GameOver();
         }
     }
 }

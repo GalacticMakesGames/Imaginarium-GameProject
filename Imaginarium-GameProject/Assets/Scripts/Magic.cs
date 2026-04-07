@@ -19,6 +19,11 @@ public class Magic : MonoBehaviour
     //public GameObject openRift;
     public LayerMask openRiftLayer;
 
+    [Header("Flaming Glory Variables")]
+    public float flamingGloryRadius = 5;
+    //public GameObject flame;
+    public LayerMask towerPuzzleLayer;
+
     public bool CanCast => Time.time >= nextCastTime;
     private float nextCastTime;
 
@@ -86,14 +91,20 @@ public class Magic : MonoBehaviour
         if (!CanCast)
             return;
 
-        Collider[] openrifts = Physics.OverlapSphere(playerController.transform.position, riftFixRadius, openRiftLayer);
+        Collider[] towerpillars = Physics.OverlapSphere(playerController.transform.position, flamingGloryRadius, towerPuzzleLayer);
 
-        foreach (Collider openrift in openrifts)
+        foreach (Collider towerpillar in towerpillars)
         {
-            if (openrift.CompareTag("OpenRift"))
+            if (towerpillar.CompareTag("TowerPuzzle"))
             {
-                // Destroy the matching GameObject
-                Destroy(openrift.gameObject);
+                // Try to get the Pillar script attached to the collided object
+                Pillar pillarScript = towerpillar.GetComponent<Pillar>();
+
+                // If the script exists and a flame child was assigned in the Inspector
+                if (pillarScript != null && pillarScript.flameChild != null)
+                {
+                    pillarScript.flameChild.SetActive(true);
+                }
             }
         }
 
