@@ -20,18 +20,20 @@ public class EnemyAI : MonoBehaviour
     private Vector3 currentPatrolPoint;
     private bool hasPatrolPoint;
 
-    [Header("Combat Settings")]
-    [SerializeField] private float attackCooldown = 1f;
-    private bool isOnAttackCooldown;
+    //[Header("Combat Settings")]
+    //[SerializeField] private float attackCooldown = 1f;
+    //private bool isOnAttackCooldown;
     //[SerializeField] private float forwardShotForce = 10f;
     //[SerializeField] private float verticalShotForce = 5f;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
-    [SerializeField] private float engagementRange = 10f;
+    //[SerializeField] private float engagementRange = 10f;
 
     private bool isPlayerVisible;
     private bool isPlayerInRange;
+
+    public Animator enemyAnimator;
 
     private void Awake()
     {
@@ -58,8 +60,8 @@ public class EnemyAI : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, engagementRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, engagementRange);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRange);
@@ -68,7 +70,7 @@ public class EnemyAI : MonoBehaviour
     private void DetectPlayer()
     {
         isPlayerVisible = Physics.CheckSphere(transform.position, visionRange, playerLayerMask);
-        isPlayerInRange = Physics.CheckSphere(transform.position, engagementRange, playerLayerMask);
+        //isPlayerInRange = Physics.CheckSphere(transform.position, engagementRange, playerLayerMask);
     }
 
     private void FindPatrolPoint()
@@ -95,6 +97,9 @@ public class EnemyAI : MonoBehaviour
 
         if (Vector3.Distance(transform.position, currentPatrolPoint) < 1f)
             hasPatrolPoint = false;
+
+        //enemyAnimator.SetBool("isWalking", true);
+        //enemyAnimator.SetBool("isAttacking", false);
     }
 
     private void PerformChase()
@@ -102,50 +107,68 @@ public class EnemyAI : MonoBehaviour
         if (playerTransform != null)
         {
             navAgent.SetDestination(playerTransform.position);
+
+            //enemyAnimator.SetBool("isWalking", true);
+            //enemyAnimator.SetBool("isAttacking", false);
         }
     }
 
-    private void PerformAttack()
-    {
-        navAgent.SetDestination(transform.position);
+    //private void PerformAttack()
+    //{
+    //    navAgent.SetDestination(transform.position);
 
-        if (playerTransform != null)
-        {
-            transform.LookAt(playerTransform);
-        }
+    //    if (playerTransform != null)
+    //    {
+    //        transform.LookAt(playerTransform);
+    //    }
 
-        if (!isOnAttackCooldown)
-        {
-            Attack();
-            StartCoroutine(AttackCooldownRoutine());
-        }
-    }
+        //if (!isOnAttackCooldown)
+        //{
+        //    Attack();
+        //    StartCoroutine(AttackCooldownRoutine());
+        //}
+    //}
 
-    private void Attack()
-    {
+    //private void Attack()
+    //{
+    //    //enemyAnimator.SetBool("isWalking", false);
+    //    //enemyAnimator.SetBool("isAttacking", true);
+    //}
 
-    }
-
-    private IEnumerator AttackCooldownRoutine()
-    {
-        isOnAttackCooldown = true;
-        yield return new WaitForSeconds(attackCooldown);
-        isOnAttackCooldown = false;
-    }
+    //private IEnumerator AttackCooldownRoutine()
+    //{
+    //    isOnAttackCooldown = true;
+    //    yield return new WaitForSeconds(attackCooldown);
+    //    isOnAttackCooldown = false;
+    //}
 
     private void UpdateBehaviourState()
     {
-        if (!isPlayerVisible && !isPlayerInRange)
+        if (!isPlayerVisible)
         {
             PerformPatrol();
         }
-        else if (isPlayerVisible && !isPlayerInRange)
+        else if (isPlayerVisible)
         {
             PerformChase();
         }
-        else if (isPlayerVisible &&  isPlayerInRange)
-        {
-            PerformAttack();
-        }
+
+        //else if (isPlayerVisible && isPlayerInRange)
+        //{
+        //    PerformAttack();
+        //}
+
+        //if (!isPlayerVisible && !isPlayerInRange)
+        //{
+        //    PerformPatrol();
+        //}
+        //else if (isPlayerVisible && !isPlayerInRange)
+        //{
+        //    PerformChase();
+        //}
+        //else if (isPlayerVisible &&  isPlayerInRange)
+        //{
+        //    PerformAttack();
+        //}
     }
 }

@@ -8,15 +8,15 @@ public class Health : MonoBehaviour
     public event Action OnDamaged;
     public event Action OnDeath;
     
-    public int health;
-    public int maxHealth;
+    public float health;
+    public float maxHealth;
 
     private void Start()
     {
         health = maxHealth;
     }
 
-    public void ChangeHealth(int amount)
+    public void ChangeHealth(float amount)
     {
         health += amount;
 
@@ -29,4 +29,16 @@ public class Health : MonoBehaviour
         else if (amount < 0)
             OnDamaged?.Invoke(); // check for listeners before taking action
     }
+
+    //public void ChangeHealth(float amount)
+    //{
+    //    health -= amount;
+    //    OnDamaged?. Invoke();
+
+    //    if (health <= 0)
+    //    {
+    //        health = 0;
+    //        Debug.Log("Died");
+    //        OnDeath?.Invoke();
+    //    }
 }

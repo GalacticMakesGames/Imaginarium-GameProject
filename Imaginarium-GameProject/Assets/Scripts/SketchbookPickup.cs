@@ -6,6 +6,9 @@ public class SketchbookPickup : MonoBehaviour
 {
     public bool sketchbook = false;
 
+    public GameObject rightPathDialogueTrigger;
+    public GameObject rightPathBarrier;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,8 @@ public class SketchbookPickup : MonoBehaviour
         {
             sketchbook = true;
             Destroy(gameObject);
+            Destroy(rightPathDialogueTrigger);
+            Destroy(rightPathBarrier);
         }
     }
 }

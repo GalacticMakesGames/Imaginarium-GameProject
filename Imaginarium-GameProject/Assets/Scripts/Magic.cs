@@ -14,12 +14,27 @@ public class Magic : MonoBehaviour
     public GameObject slashFXPrefab;
     public LayerMask enemyLayer;
 
+    [Header("Rift Mend Variables")]
+    public float riftFixRadius = 5;
+    //public GameObject openRift;
+    public LayerMask openRiftLayer;
+
     public bool CanCast => Time.time >= nextCastTime;
     private float nextCastTime;
 
-    public void CastSpell()
+    public void CastSlashSpell()
     {
         Slash();
+    }
+
+    public void CastRiftMendSpell()
+    {
+        RiftMend();
+    }
+
+    public void CastFlamingGlorySpell()
+    {
+        FlamingGlory();
     }
 
     private void Slash()
@@ -41,6 +56,44 @@ public class Magic : MonoBehaviour
             {
                 GameObject newFX = Instantiate(slashFXPrefab, enemy.transform.position, Quaternion.identity);
                 Destroy(newFX, 2);
+            }
+        }
+
+        nextCastTime = Time.time + spellCooldown;
+    }
+
+    private void RiftMend()
+    {
+        if (!CanCast)
+            return;
+
+        Collider[] openrifts = Physics.OverlapSphere(playerController.transform.position, riftFixRadius, openRiftLayer);
+
+        foreach (Collider openrift in openrifts)
+        {
+            if (openrift.CompareTag("OpenRift"))
+            {
+                // Destroy the matching GameObject
+                Destroy(openrift.gameObject);
+            }
+        }
+
+        nextCastTime = Time.time + spellCooldown;
+    }
+
+    private void FlamingGlory()
+    {
+        if (!CanCast)
+            return;
+
+        Collider[] openrifts = Physics.OverlapSphere(playerController.transform.position, riftFixRadius, openRiftLayer);
+
+        foreach (Collider openrift in openrifts)
+        {
+            if (openrift.CompareTag("OpenRift"))
+            {
+                // Destroy the matching GameObject
+                Destroy(openrift.gameObject);
             }
         }
 

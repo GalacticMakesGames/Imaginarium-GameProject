@@ -5,17 +5,17 @@ using UnityEngine;
 public class HealthHeartBar : MonoBehaviour
 {
     public GameObject heartPrefab;
-    public Health playerHealth;
+    public PlayerHealth playerHealth;
     List<HealthHeart> hearts = new List<HealthHeart>();
 
     private void OnEnable()
     {
-        playerHealth.OnDamaged += DrawHearts;
+        playerHealth.OnPlayerDamaged += DrawHearts;
     }
 
     private void OnDisable()
     {
-        playerHealth.OnDamaged -= DrawHearts;
+        playerHealth.OnPlayerDamaged -= DrawHearts;
     }
 
     private void Start()
@@ -28,8 +28,8 @@ public class HealthHeartBar : MonoBehaviour
         ClearHearts();
 
         // determine how many hearts to make total based off the max health
-        float maxHealthRemainder = playerHealth.maxHealth % 2;
-        int heartsToMake = (int)((playerHealth.maxHealth / 2) + maxHealthRemainder);
+        float maxPlayerHealthRemainder = playerHealth.maxPlayerHealth % 2;
+        int heartsToMake = (int)((playerHealth.maxPlayerHealth / 2) + maxPlayerHealthRemainder);
         for (int i = 0; i < heartsToMake; i++)
         {
             CreateEmptyHeart();
@@ -37,7 +37,7 @@ public class HealthHeartBar : MonoBehaviour
 
         for(int i = 0; i < hearts.Count; i++)
         {
-            int heartStatusRemainder = (int)Mathf.Clamp(playerHealth.health = (i * 2), 0, 2);
+            int heartStatusRemainder = (int)Mathf.Clamp(playerHealth.playerHealth - (i * 2), 0, 2);
             hearts[i].SetHeartImage((HeartStatus)heartStatusRemainder);
         }
     }
@@ -58,6 +58,6 @@ public class HealthHeartBar : MonoBehaviour
         {
             Destroy(t.gameObject);
         }
-        hearts = new List<HealthHeart> ();
+        hearts = new List<HealthHeart>();
     }
 }
